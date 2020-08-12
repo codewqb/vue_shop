@@ -1,34 +1,92 @@
-<!--  -->
 <template>
-  <div id="home">
-    Home 组件
-    <el-button @click="quit" type="info">退出</el-button>
-  </div>
+  <el-container id="home">
+    <!-- 头部 -->
+    <el-header>
+      <div>
+        <img src="~assets/imgs/heima.png" alt />
+        <h1>电商后台管理系统</h1>
+      </div>
+      <el-button @click="quit" type="info">退出</el-button>
+    </el-header>
+    <!-- 主体 -->
+    <el-container>
+      <!-- 侧边栏 -->
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <!-- 菜单折叠 -->
+        <div class="taggle-btn" @click="taggleCollapse">|||</div>
+        <!-- 侧边栏菜单 -->
+        <el-menu
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409eff"
+          unique-opened
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          router
+          :default-active="getActivePath"
+        >
+          <!-- 一级菜单 -->
+          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
+            <!-- 一级菜单模板区 -->
+            <template slot="title">
+              <!-- 图标 -->
+              <i :class="icons[item.id]"></i>
+              <!-- 文本 -->
+              <span>{{item.authName}}</span>
+            </template>
+            <!-- 二级菜单 -->
+
+            <el-menu-item :index="'/'+data.path" v-for="data in item.children" :key="data.id">
+              <template slot="title">
+                <!-- 图标 -->
+                <i class="el-icon-menu"></i>
+                <!-- 文本 -->
+                <span>{{data.authName}}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <!-- 右侧内容主体 -->
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
-// 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-// 例如：import 《组件名称》 from '《组件路径》';
-
+import { getMenuList } from 'network/home';
 export default {
-  // import引入的组件需要注入到对象中才能使用
   name: 'Home',
-  components: {},
-  data() {
-    // 这里存放数据
-    return {
+  components: {
 
+  },
+  data() {
+    return {
+      menuList: [], // 左侧菜单数据
+      icons: {
+
+        '125': 'fas fa-users',
+        '103': 'fas fa-dice-d6',
+        '101': 'fas fa-shopping-bag',
+        '102': 'fas fa-receipt',
+        '145': 'fas fa-money-bill',
+      }, // 一级菜单字体图标
+      isCollapse: false, // 菜单折叠状态
+      activePath: '' // 菜单高亮状态路径
     }
   },
-  // 监听属性 类似于data概念
+  created() {
+    // 请求左侧菜单数据
+    this.getMenuList();
+  },
   computed: {
-
+    // 实现链接状态高亮
+    getActivePath() {
+      return this.activePath = this.$route.path
+    }
   },
-  // 监控data中的数据变化
-  watch: {
-
-  },
-  // 方法集合
   methods: {
     // 实现退出功能
     quit() {
@@ -36,31 +94,66 @@ export default {
       window.sessionStorage.clear();
       // 跳转登录页 编程式导航
       this.$router.push('/login');
+    },
+    // 请求左侧菜单数据
+    getMenuList() {
+      getMenuList().then(res => {
+        if (res.meta.status !== 200) {
+          return this.$message.error(res.meta.msg);
+        } else {
+          this.menuList = res.data;
+        }
+      })
+    },
+    // 实现左侧菜单的折叠与展开
+    taggleCollapse() {
+      this.isCollapse = !this.isCollapse;
     }
-  },
-  // 生命周期 - 创建之前
-  beforeCreate() { },
-  // 生命周期 - 创建完成（可以访问当前this实例）
-  created() {
 
-  },
-  // 生命周期 - 挂载之前
-  beforeMount() { },
-  // 生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-
-  },
-  // 生命周期 - 更新之前
-  beforeUpdate() { },
-  // 生命周期 - 更新之后
-  updated() { },
-  // 生命周期 - 销毁之前
-  beforeDestroy() { },
-  // 生命周期 - 销毁完成
-  destroyed() { },
-  // 如果页面有keep-alive缓存功能，这个函数会触发
-  activated() { }
+  }
 }
 </script>
 <style lang="less" scoped>
+#home {
+  height: 100%;
+}
+.el-header {
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  background-color: #373d41;
+  div {
+    display: flex;
+    align-items: center;
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      margin-left: 15px;
+    }
+  }
+}
+.el-aside {
+  background-color: #333744;
+  .taggle-btn {
+    font-size: 10px;
+    line-height: 24px;
+    color: #fff;
+    text-align: center;
+    // 字符间隔
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    background-color: #4a5064;
+  }
+}
+.el-menu {
+  border-right: none;
+}
+.el-menu .fas {
+  width: 15px;
+  text-align: center;
+  margin-right: 10px;
+}
+.el-main {
+  background-color: #eaedf1;
+}
 </style>

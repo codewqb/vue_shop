@@ -1,10 +1,10 @@
 import {
   request
 } from './request';
-export function postLoginFrom(data) {
+export function postLoginForm(data) {
   return request({
     method: 'POST',
     url: '/login',
-    data: data
+    data
   })
 }
