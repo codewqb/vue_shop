@@ -4,9 +4,11 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import 'assets/fa/css/all.css'
+import TreeTable from 'vue-table-with-tree-grid'
 
 Vue.config.productionTip = false
 
+Vue.component('tree-table', TreeTable)
 new Vue({
   router,
   store,
