@@ -1,6 +1,7 @@
 import {
   request
 } from './request'
+// Categories
 // 请求分类列表
 export function getCateList(params) {
   return request({
@@ -44,10 +45,28 @@ export function editCate(data) {
     }
   })
 }
+// 删除分类
 export function deleteCate(id) {
   return request({
     method: 'delete',
-    url: 'categories/' +id,
+    url: 'categories/' + id,
   })
 }
-
+// Params
+// 请求所有分类列表
+export function getAllCateList() {
+  return request({
+    method: 'get',
+    url: 'categories',
+  })
+}
+// 获取参数列表
+export function getParamsList(id, sel) {
+  return request({
+    method: 'get',
+    url: 'categories/' + id + '/attributes',
+    params: {
+      sel: sel
+    }
+  })
+}
