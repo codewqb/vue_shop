@@ -7,6 +7,7 @@ const Users = () => import('views/home/userm/Users')
 const Rights = () => import('views/home/rightm/Rights')
 const Roles = () => import('views/home/rightm/Roles')
 const Goods = () => import('views/home/goodsm/Goods')
+const Add = () => import('views/home/goodsm/Add')
 const Params = () => import('views/home/goodsm/Params')
 const Categories = () => import('views/home/goodsm/Categories')
 const Orders = () => import('views/home/orderm/Orders')
@@ -44,6 +45,11 @@ const routes = [{
       {
         path: '/goods',
         component: Goods
+      },
+
+      {
+        path: '/goods/add',
+        component: Add
       },
       {
         path: '/params',

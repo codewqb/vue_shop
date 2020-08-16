@@ -74,7 +74,8 @@ export default {
         '145': 'fas fa-money-bill',
       }, // 一级菜单字体图标
       isCollapse: false, // 菜单折叠状态
-      activePath: '' // 菜单高亮状态路径
+      // 菜单状态高亮
+      activePath: ''
     }
   },
   created() {
@@ -82,9 +83,9 @@ export default {
     this.getMenuList();
   },
   computed: {
-    // 实现链接状态高亮
     getActivePath() {
-      return this.activePath = this.$route.path
+      const p = this.$route.path.split('/')[1];
+      return this.activePath = '/' + p;
     }
   },
   methods: {

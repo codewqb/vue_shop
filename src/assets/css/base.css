@@ -61,3 +61,7 @@ div .el-table {
 .el-cascader-panel {
   height: 200px;
 }
+
+div.el-step__title {
+  font-size: 13px;
+}

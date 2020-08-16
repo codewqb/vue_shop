@@ -42,12 +42,12 @@ export default {
     // 权限列表获取
     getRightList() {
       getRightList().then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.meta.status !== 200) {
           return this.$message.error('获取权限列表失败');
         } else {
           this.rightList = res.data;
-          console.log(res.data);
+          // console.log(res.data);
         }
       })
     }

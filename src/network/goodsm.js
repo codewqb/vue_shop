@@ -70,3 +70,19 @@ export function getParamsList(id, sel) {
     }
   })
 }
+// Goods_list
+// 获取商品列表
+export function getGoodsList(params) {
+  return request({
+    method: 'get',
+    url: 'goods',
+    params
+  })
+}
+// 删除商品
+export function deleteGoods(id) {
+  return request({
+    method: 'delete',
+    url: 'goods/' + id
+  })
+}
