@@ -5,18 +5,21 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  components: {}
-}
+  export default {
+    name: 'app',
+    components: {}
+  }
+
 </script>
 
 <style lang="less">
-@import './assets/css/base.css';
-html,
-body,
-#app {
-  height: 100%;
-  min-width: 1360px;
-}
+  @import './assets/css/base.css';
+
+  html,
+  body,
+  #app {
+    height: 100%;
+    min-width: 1360px;
+  }
+
 </style>

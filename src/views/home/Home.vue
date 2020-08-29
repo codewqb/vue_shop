@@ -35,7 +35,6 @@
               <span>{{item.authName}}</span>
             </template>
             <!-- 二级菜单 -->
-
             <el-menu-item :index="'/'+data.path" v-for="data in item.children" :key="data.id">
               <template slot="title">
                 <!-- 图标 -->
@@ -56,7 +55,9 @@
 </template>
 
 <script>
-import { getMenuList } from 'network/home';
+import {
+  getMenuList
+} from 'network/home';
 export default {
   name: 'Home',
   components: {
@@ -66,7 +67,6 @@ export default {
     return {
       menuList: [], // 左侧菜单数据
       icons: {
-
         '125': 'fas fa-users',
         '103': 'fas fa-dice-d6',
         '101': 'fas fa-shopping-bag',
@@ -113,19 +113,23 @@ export default {
 
   }
 }
+
 </script>
 <style lang="less" scoped>
 #home {
   height: 100%;
 }
+
 .el-header {
   display: flex;
   padding: 0;
   justify-content: space-between;
   background-color: #373d41;
+
   div {
     display: flex;
     align-items: center;
+
     h1 {
       font-size: 20px;
       color: #fff;
@@ -133,8 +137,10 @@ export default {
     }
   }
 }
+
 .el-aside {
   background-color: #333744;
+
   .taggle-btn {
     font-size: 10px;
     line-height: 24px;
@@ -146,14 +152,17 @@ export default {
     background-color: #4a5064;
   }
 }
+
 .el-menu {
   border-right: none;
 }
+
 .el-menu .fas {
   width: 15px;
   text-align: center;
   margin-right: 10px;
 }
+
 .el-main {
   background-color: #eaedf1;
 }
